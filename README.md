@@ -58,16 +58,17 @@ git push                         # Vercel autodeploys
 ## What's next
 
 The current landing page is a **holding page** — the v0.1 of
-flatpack.info. The two pieces still to ship:
+flatpack.info. The piece still to ship:
 
-1. **Wire the email-signup form** to a real provider (Buttondown /
-   Resend / Tally / etc.). The `action=` URL in `index.html` is a
-   placeholder.
-2. **The web generator** — a server-rendered page that takes a
-   user's request, calls an LLM API with the Flatpack generation
-   prompt loaded, validates the output, and offers a download. That
-   becomes `/generate` or a subdomain. See the main Flatpack repo's
-   roadmap.
+- **The web generator** — a server-rendered page that takes a
+  user's request, calls an LLM API with the Flatpack generation
+  prompt loaded, validates the output, and offers a download.
+  Becomes `/generate` or a subdomain. When that ships, add a CTA
+  card to `index.html` and a small "how this works" page.
+
+(No email-signup form yet — deliberately. Adding one before there's
+something to send wouldn't be useful and would oblige a list to keep
+clean.)
 
 ## License
 

@@ -80,9 +80,6 @@
   .cta:hover { border-color: var(--accent); transform: translateY(-1px); }
   .cta .label { display: block; color: var(--accent); font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
   .cta .desc  { color: var(--muted); font-size: 0.92rem; line-height: 1.4; }
-  .cta.disabled { opacity: 0.7; }
-  .cta.disabled:hover { border-color: var(--line); transform: none; }
-
   .principles { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 14px 0 0; }
   @media (max-width: 640px) { .principles { grid-template-columns: 1fr; } }
   .principle { padding: 10px 0; }
@@ -95,36 +92,12 @@
   .try-list a .name { font-weight: 500; }
   .try-list a .blurb { color: var(--muted); font-size: 0.88rem; }
 
-  form.signup { display: flex; gap: 8px; margin: 14px 0 4px; }
-  form.signup input[type="email"] {
-    flex: 1;
-    padding: 9px 12px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: var(--panel);
-    color: var(--ink);
-    font: inherit;
-  }
-  form.signup input[type="email"]:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
-  form.signup button {
-    padding: 9px 16px;
-    border-radius: var(--radius);
-    border: 1px solid var(--accent);
-    background: var(--accent);
-    color: var(--accent-ink);
-    font: inherit;
-    font-weight: 600;
-    cursor: pointer;
-  }
-  form.signup button:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
-  .signup-note { color: var(--muted); font-size: 0.85rem; margin-top: 6px; }
-
   .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
 
   @media print {
     body { background: #fff; color: #000; }
     main, header, footer { max-width: none; padding: 0 1.5cm; }
-    .ctas, form.signup { display: none; }
+    .ctas { display: none; }
     h1 { font-size: 2rem; }
     a { color: #000; border-bottom: none; }
   }
@@ -158,9 +131,9 @@
       <span class="label">Build with this →</span>
       <span class="desc">The open standard, templates, and tooling. MIT.</span>
     </a>
-    <a class="cta disabled" href="#notify">
-      <span class="label">Generate your own →</span>
-      <span class="desc">A web generator is coming. Get notified when it lands.</span>
+    <a class="cta" href="https://github.com/ConceptPending/flatpack/blob/main/SPEC.md" target="_blank" rel="noopener">
+      <span class="label">Read the spec →</span>
+      <span class="desc">The contract: what a Flatpack is, what's forbidden, how it stays editable.</span>
     </a>
   </div>
 
@@ -231,24 +204,7 @@
   </p>
 
 
-  <h2 id="notify">Get notified when the generator lands</h2>
 
-  <p>
-    The web generator — type what you need, get a Flatpack — is in
-    progress. Drop your email if you want to know when it goes live.
-    No other mail, no list-broking, easy to unsubscribe.
-  </p>
-
-  <form class="signup" action="https://buttondown.com/api/emails/embed-subscribe/flatpack" method="post" target="popupwindow">
-    <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address">
-    <button type="submit">Notify me</button>
-    <input type="hidden" name="embed" value="1">
-  </form>
-  <p class="signup-note">
-    <!-- TODO before going live: replace action= with a real provider.
-         Options: Buttondown, ConvertKit/Kit, Resend Audiences, Tally, Formspree. -->
-    Form action is a Buttondown placeholder — wire to your provider before deploy.
-  </p>
 
 
   <h2>For developers</h2>
