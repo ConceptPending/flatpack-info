@@ -13,4 +13,9 @@
   <url><loc>https://flatpack.info/try/checklist</loc></url>
   <url><loc>https://flatpack.info/try/report-builder</loc></url>
   <url><loc>https://flatpack.info/try/decision-tree</loc></url>
+  <url><loc>https://flatpack.info/agent-rules/CLAUDE.md</loc></url>
+  <url><loc>https://flatpack.info/agent-rules/AGENTS.md</loc></url>
+  <url><loc>https://flatpack.info/agent-rules/cursor.mdc</loc></url>
+  <url><loc>https://flatpack.info/agent-rules/windsurf.md</loc></url>
+  <url><loc>https://flatpack.info/agent-rules/copilot-instructions.md</loc></url>
 </urlset>

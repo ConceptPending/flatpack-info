@@ -8,9 +8,14 @@ This repo contains:
   external resources, follows the same discipline as Flatpack itself.
 - `try/` — copies of the Flatpack templates and examples, served
   directly so the "Try one" links open real, working files.
-- `tools/sync-flatpacks.mjs` — refreshes `try/` from a local clone of
-  the canonical Flatpack repo. Run before every deploy.
-- `vercel.json` — deploy config for Vercel.
+- `agent-rules/` — mirrored agent-rules files (`CLAUDE.md`, `AGENTS.md`,
+  `cursor.mdc`, `windsurf.md`, `copilot-instructions.md`) so the
+  install one-liners can use short `flatpack.info/agent-rules/*` URLs.
+- `tools/sync-upstream.mjs` — refreshes both `try/` and `agent-rules/`
+  from a local clone of the canonical Flatpack repo. Run before every
+  deploy.
+- `vercel.json` — deploy config for Vercel. `Content-Type: text/plain`
+  on `agent-rules/*.{md,mdc}` so browsers display them inline.
 
 The Flatpack standard itself lives at
 [github.com/ConceptPending/flatpack](https://github.com/ConceptPending/flatpack).
@@ -19,7 +24,7 @@ The Flatpack standard itself lives at
 
 ```bash
 # Sync the latest Flatpacks into try/
-node tools/sync-flatpacks.mjs
+node tools/sync-upstream.mjs
 
 # Serve locally — any static server works
 python3 -m http.server 8080
@@ -37,7 +42,7 @@ Hosted on Vercel from this repo's `main` branch.
 vercel link
 
 # Deploy
-node tools/sync-flatpacks.mjs   # refresh try/ from upstream
+node tools/sync-upstream.mjs   # refresh try/ from upstream
 vercel --prod
 ```
 
@@ -45,14 +50,15 @@ vercel --prod
 
 ## Updating after upstream changes
 
-When the canonical Flatpack repo ships a new template or example:
+When the canonical Flatpack repo ships a new template, example, or
+agent-rules file:
 
 ```bash
-cd ~/flatpack && git pull       # or wherever your clone lives
-cd ~/flatpack-info
-node tools/sync-flatpacks.mjs
-git add try/ && git commit -m "Sync Flatpacks from upstream"
-git push                         # Vercel autodeploys
+git -C ~/flatpack pull          # or wherever your clone lives
+node /Users/nick/flatpack-info/tools/sync-upstream.mjs
+git -C ~/flatpack-info add try/ agent-rules/
+git -C ~/flatpack-info commit -m "Sync from upstream"
+git -C ~/flatpack-info push      # Vercel autodeploys
 ```
 
 ## What's next
