@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Flatpack — a standard for personal AI-built tools</title>
+<meta name="description" content="A checkable standard for one-file, local-first HTML utilities that AI agents can produce and a different agent can edit later. For when a spreadsheet is too weak and SaaS is too much.">
+<meta property="og:title" content="Flatpack — a standard for personal AI-built tools">
+<meta property="og:description" content="One HTML file. Runs offline. Leaves the chat.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://flatpack.info">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#2b6cb0">
+<!--
+  This landing page is not a Flatpack — it has no state, no inputs, no
+  exports — but it follows the same discipline: one file, no external
+  resources, no network calls, prints cleanly.
+-->
+<style>
+  :root {
+    --bg: #f7f7f5;
+    --panel: #fff;
+    --ink: #1b1b1a;
+    --muted: #6a6a66;
+    --line: #e5e5e0;
+    --accent: #2b6cb0;
+    --accent-hover: #245d99;
+    --accent-ink: #fff;
+    --radius: 10px;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16161a;
+      --panel: #1c1c20;
+      --ink: #e8e8e3;
+      --muted: #9a9a92;
+      --line: #2b2b30;
+      --accent: #4a8fd3;
+      --accent-hover: #5fa2e0;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); line-height: 1.55; }
+  body { font-size: 17px; }
+  main, header, footer { max-width: 720px; margin: 0 auto; padding: 0 28px; }
+  header { padding-top: 48px; padding-bottom: 8px; }
+  main { padding-top: 12px; padding-bottom: 64px; }
+  footer { padding-top: 32px; padding-bottom: 48px; color: var(--muted); font-size: 0.92rem; border-top: 1px solid var(--line); margin-top: 48px; }
+  h1, h2, h3 { margin: 0; line-height: 1.2; }
+  h1 { font-size: 2.4rem; letter-spacing: -0.02em; font-weight: 700; }
+  h2 { font-size: 1.4rem; letter-spacing: -0.01em; font-weight: 700; margin: 40px 0 14px; }
+  h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; }
+  p { margin: 0 0 14px; }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); }
+  a:hover { color: var(--accent-hover); border-bottom-color: var(--accent-hover); }
+  ul { padding-left: 1.2em; margin: 6px 0 16px; }
+  li { margin: 4px 0; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.92em; background: var(--panel); padding: 1px 5px; border-radius: 3px; border: 1px solid var(--line); }
+  blockquote { margin: 18px 0; padding: 4px 18px; border-left: 3px solid var(--accent); color: var(--ink); font-style: normal; }
+
+  .wordmark { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); border: none; }
+  .badge { display: inline-block; font-size: 0.78rem; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px; margin-left: 8px; vertical-align: middle; }
+
+  .lede { font-size: 1.25rem; line-height: 1.45; color: var(--ink); margin: 18px 0 12px; }
+  .tagline { color: var(--muted); font-size: 1.05rem; margin-bottom: 28px; }
+
+  .ctas { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 30px 0 36px; }
+  @media (max-width: 640px) { .ctas { grid-template-columns: 1fr; } }
+  .cta {
+    display: block;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: border-color 120ms, transform 120ms;
+  }
+  .cta:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .cta .label { display: block; color: var(--accent); font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
+  .cta .desc  { color: var(--muted); font-size: 0.92rem; line-height: 1.4; }
+  .cta.disabled { opacity: 0.7; }
+  .cta.disabled:hover { border-color: var(--line); transform: none; }
+
+  .principles { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 14px 0 0; }
+  @media (max-width: 640px) { .principles { grid-template-columns: 1fr; } }
+  .principle { padding: 10px 0; }
+  .principle h3 { color: var(--accent); }
+  .principle p { color: var(--muted); font-size: 0.95rem; margin: 0; }
+
+  .try-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 18px; margin: 8px 0 18px; padding: 0; list-style: none; }
+  @media (max-width: 640px) { .try-list { grid-template-columns: 1fr; } }
+  .try-list a { display: flex; justify-content: space-between; align-items: baseline; border: none; padding: 5px 0; }
+  .try-list a .name { font-weight: 500; }
+  .try-list a .blurb { color: var(--muted); font-size: 0.88rem; }
+
+  form.signup { display: flex; gap: 8px; margin: 14px 0 4px; }
+  form.signup input[type="email"] {
+    flex: 1;
+    padding: 9px 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--panel);
+    color: var(--ink);
+    font: inherit;
+  }
+  form.signup input[type="email"]:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  form.signup button {
+    padding: 9px 16px;
+    border-radius: var(--radius);
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: var(--accent-ink);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  form.signup button:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+  .signup-note { color: var(--muted); font-size: 0.85rem; margin-top: 6px; }
+
+  .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+
+  @media print {
+    body { background: #fff; color: #000; }
+    main, header, footer { max-width: none; padding: 0 1.5cm; }
+    .ctas, form.signup { display: none; }
+    h1 { font-size: 2rem; }
+    a { color: #000; border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wordmark">Flatpack <span class="badge">v0.3.0-alpha</span></div>
+</header>
+
+<main>
+
+  <h1>A standard for personal AI-built tools.</h1>
+
+  <p class="lede">
+    For when a spreadsheet is too weak and SaaS is too much. One HTML
+    file. Runs offline. Leaves the chat.
+  </p>
+
+  <p class="tagline">
+    AI has made personal software viable. Flatpack solves the form factor.
+  </p>
+
+  <div class="ctas">
+    <a class="cta" href="/try/invoice-cleaner.html" target="_blank" rel="noopener">
+      <span class="label">Try one →</span>
+      <span class="desc">An invoice CSV cleaner you can use right now. Opens in your browser.</span>
+    </a>
+    <a class="cta" href="https://github.com/ConceptPending/flatpack" target="_blank" rel="noopener">
+      <span class="label">Build with this →</span>
+      <span class="desc">The open standard, templates, and tooling. MIT.</span>
+    </a>
+    <a class="cta disabled" href="#notify">
+      <span class="label">Generate your own →</span>
+      <span class="desc">A web generator is coming. Get notified when it lands.</span>
+    </a>
+  </div>
+
+  <div class="principles">
+    <div class="principle">
+      <h3>One file</h3>
+      <p>The artifact is the program. Save it, send it, open it later. No install.</p>
+    </div>
+    <div class="principle">
+      <h3>Local-first</h3>
+      <p>No network calls, no embedded secrets, no telemetry. Owns its data.</p>
+    </div>
+    <div class="principle">
+      <h3>Agent-editable</h3>
+      <p>A different AI agent, six months on, can change it without breaking it.</p>
+    </div>
+  </div>
+
+
+  <h2>Try one in your browser</h2>
+
+  <p>
+    Each link opens a real, working Flatpack — single HTML file, no setup.
+    Click <em>Load sample data</em> once it opens. Save it locally if you
+    want to use it again later.
+  </p>
+
+  <ul class="try-list">
+    <li><a href="/try/invoice-cleaner.html"        target="_blank" rel="noopener"><span class="name">Invoice cleaner</span> <span class="blurb">CSV in, validated rows out</span></a></li>
+    <li><a href="/try/pricing-calculator.html"     target="_blank" rel="noopener"><span class="name">Client quote</span> <span class="blurb">Days × rate → printable proposal</span></a></li>
+    <li><a href="/try/case-chronology-helper.html" target="_blank" rel="noopener"><span class="name">Case chronology</span> <span class="blurb">Dated event log with tags</span></a></li>
+    <li><a href="/try/checklist.html"              target="_blank" rel="noopener"><span class="name">Checklist</span> <span class="blurb">Sectioned progress + notes</span></a></li>
+    <li><a href="/try/report-builder.html"         target="_blank" rel="noopener"><span class="name">Report builder</span> <span class="blurb">Guided form → Markdown</span></a></li>
+    <li><a href="/try/decision-tree.html"          target="_blank" rel="noopener"><span class="name">Decision tree</span> <span class="blurb">Branching questions → recommendation</span></a></li>
+    <li><a href="/try/calculator.html"             target="_blank" rel="noopener"><span class="name">Calculator</span> <span class="blurb">Inputs → result → print summary</span></a></li>
+    <li><a href="/try/csv-cleaner.html"            target="_blank" rel="noopener"><span class="name">CSV cleaner</span> <span class="blurb">Generic CSV validator</span></a></li>
+  </ul>
+
+
+  <h2>What this is</h2>
+
+  <p>
+    Flatpack is a specification, not a product. It tells an AI coding agent
+    how to produce a single-file local HTML tool with a stable internal
+    structure — section markers, a manifest, inline tests, AI-editing notes
+    — so the result is portable, inspectable, and editable by a different
+    agent later. The spec is mechanically checkable; a Node script verifies
+    every claim.
+  </p>
+
+  <p>
+    The format is local-first by design. No external scripts, no network
+    calls, no embedded secrets, no telemetry. The privacy model is the same
+    as opening a PDF on your laptop.
+  </p>
+
+  <blockquote>
+    <strong>Flatpack is the file format for personal software.<br>
+    Baseplate is the foundation for shared software.</strong>
+  </blockquote>
+
+  <p>
+    When a Flatpack stops being <em>my tool</em> and becomes <em>our tool</em>
+    — a second person needs to use it, data should be stored centrally,
+    audit history matters — it gets <em>promoted</em> into a
+    <a href="https://github.com/ConceptPending/baseplate" target="_blank" rel="noopener">Baseplate</a>
+    project. Two ends of the same path.
+  </p>
+
+
+  <h2 id="notify">Get notified when the generator lands</h2>
+
+  <p>
+    The web generator — type what you need, get a Flatpack — is in
+    progress. Drop your email if you want to know when it goes live.
+    No other mail, no list-broking, easy to unsubscribe.
+  </p>
+
+  <form class="signup" action="https://buttondown.com/api/emails/embed-subscribe/flatpack" method="post" target="popupwindow">
+    <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address">
+    <button type="submit">Notify me</button>
+    <input type="hidden" name="embed" value="1">
+  </form>
+  <p class="signup-note">
+    <!-- TODO before going live: replace action= with a real provider.
+         Options: Buttondown, ConvertKit/Kit, Resend Audiences, Tally, Formspree. -->
+    Form action is a Buttondown placeholder — wire to your provider before deploy.
+  </p>
+
+
+  <h2>For developers</h2>
+
+  <p>
+    The standard, templates, and tooling live on GitHub at
+    <a href="https://github.com/ConceptPending/flatpack" target="_blank" rel="noopener">github.com/ConceptPending/flatpack</a>.
+    The spec is at
+    <a href="https://github.com/ConceptPending/flatpack/blob/main/SPEC.md" target="_blank" rel="noopener">SPEC.md</a>
+    (~475 lines, brutally specific).
+  </p>
+
+  <p>
+    Make your AI tool produce Flatpacks by default — copy one file from
+    <a href="https://github.com/ConceptPending/flatpack/tree/main/agent-rules" target="_blank" rel="noopener">agent-rules</a>
+    into your project (one-line <code>curl</code> installs in the README).
+    Works with Claude Code, Cursor, Windsurf, GitHub Copilot, and any agent
+    that reads <code>AGENTS.md</code>.
+  </p>
+
+  <p>
+    Verify any Flatpack mechanically:
+    <code>node tools/check-flatpack.mjs --strict</code>. Cross-browser smoke
+    test runs against Chromium, Firefox, and WebKit. Handles 500,000-row
+    CSVs in about a second.
+  </p>
+
+</main>
+
+<footer>
+  <div class="footer-links">
+    <a href="https://github.com/ConceptPending/flatpack" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://github.com/ConceptPending/flatpack/blob/main/SPEC.md" target="_blank" rel="noopener">Spec</a>
+    <a href="https://github.com/ConceptPending/flatpack/tree/main/case-studies" target="_blank" rel="noopener">Case studies</a>
+    <a href="https://github.com/ConceptPending/flatpack/blob/main/docs/archetypes.md" target="_blank" rel="noopener">Archetypes</a>
+    <a href="https://github.com/ConceptPending/baseplate" target="_blank" rel="noopener">Baseplate</a>
+    <a href="https://github.com/ConceptPending/flatpack/blob/main/LICENSE" target="_blank" rel="noopener">License (MIT)</a>
+  </div>
+  <p style="margin-top: 16px; margin-bottom: 0;">
+    Flatpack is an open standard. This page is the canonical home of the
+    standard; the source lives on GitHub. The page itself is a single
+    self-contained HTML file with no external resources — the same
+    discipline it advocates for.
+  </p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://flatpack.info/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url><loc>https://flatpack.info/try/invoice-cleaner.html</loc></url>
+  <url><loc>https://flatpack.info/try/pricing-calculator.html</loc></url>
+  <url><loc>https://flatpack.info/try/case-chronology-helper.html</loc></url>
+  <url><loc>https://flatpack.info/try/calculator.html</loc></url>
+  <url><loc>https://flatpack.info/try/csv-cleaner.html</loc></url>
+  <url><loc>https://flatpack.info/try/checklist.html</loc></url>
+  <url><loc>https://flatpack.info/try/report-builder.html</loc></url>
+  <url><loc>https://flatpack.info/try/decision-tree.html</loc></url>
+</urlset>
